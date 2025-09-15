@@ -1,0 +1,400 @@
+openapi: 3.0.3
+info:
+  title: Incident API Specification
+  version: '42'
+  description: API documentation for the Incident bounded context.
+servers:
+  - url: /api/v1
+    description: Development Server
+tags:
+  - name: Incident
+    description: Operations related to the Incident bounded context.
+paths:
+  /report-incident:
+    post:
+      summary: Report Incident
+      description: Executes the "Report Incident" command. ...
+      operationId: reportIncident
+      tags:
+        - Incident
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportIncidentRequest'
+  /assign-incident:
+    post:
+      summary: Assign Incident
+      description: Executes the "Assign Incident" command. ...
+      operationId: assignIncident
+      tags:
+        - Incident
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignIncidentRequest'
+  /investigate-incident:
+    post:
+      summary: Investigate Incident
+      description: Executes the "Investigate Incident" command. ...
+      operationId: investigateIncident
+      tags:
+        - Incident
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestigateIncidentRequest'
+  /resolve-incident:
+    post:
+      summary: Resolve Incident
+      description: Executes the "Resolve Incident" command. ...
+      operationId: resolveIncident
+      tags:
+        - Incident
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResolveIncidentRequest'
+  /close-incident:
+    post:
+      summary: Close Incident
+      description: Executes the "Close Incident" command. ...
+      operationId: closeIncident
+      tags:
+        - Incident
+      responses:
+        '200':
+          description: 'OK: The resource was updated successfully.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Incident'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloseIncidentRequest'
+  /get-all-incidents:
+    get:
+      summary: Get All Incidents
+      description: Retrieves data based on the "Get All Incidents" query. This is a synchronous query operation.
+      operationId: getAllIncidents
+      tags:
+        - Incident
+      responses:
+        '200':
+          description: Successful retrieval of data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Incident'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: An error occurred.
+    Incident:
+      type: object
+      description: Represents a Incident in the system.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Incident (primary key).
+          example: INC001
+        userId:
+          type: string
+          description: The userId of the Incident.
+          example: USR001
+        incidentTitle:
+          type: string
+          description: The incidentTitle of the Incident.
+          example: Network Issue
+        incidentDescription:
+          type: string
+          description: The incidentDescription of the Incident.
+          example: Cannot connect to VPN
+        incidentCategory:
+          type: string
+          description: The incidentCategory of the Incident.
+          example: Network
+        incidentPriority:
+          type: string
+          description: The incidentPriority of the Incident.
+          example: High
+        incidentLocation:
+          type: string
+          description: The incidentLocation of the Incident.
+          example: Office
+        incidentDate:
+          type: string
+          description: The incidentDate of the Incident.
+          example: '2023-10-01'
+        supportAgentId:
+          type: string
+          description: The supportAgentId of the Incident.
+          example: AGT001
+        assignmentDate:
+          type: string
+          description: The assignmentDate of the Incident.
+          example: '2023-10-04'
+        priorityLevel:
+          type: string
+          description: The priorityLevel of the Incident.
+          example: Urgent
+        incidentStatus:
+          type: string
+          description: The incidentStatus of the Incident.
+          example: Reported
+        investigationDetails:
+          type: string
+          description: The investigationDetails of the Incident.
+          example: Checked logs
+        investigationDate:
+          type: string
+          description: The investigationDate of the Incident.
+          example: '2023-10-07'
+        resolutionDetails:
+          type: string
+          description: The resolutionDetails of the Incident.
+          example: Rebooted server
+        resolutionDate:
+          type: string
+          description: The resolutionDate of the Incident.
+          example: '2023-10-10'
+        closureDate:
+          type: string
+          description: The closureDate of the Incident.
+          example: '2023-10-13'
+        feedback:
+          type: string
+          description: The feedback of the Incident.
+          example: Resolved quickly
+      required:
+        - id
+        - userId
+        - incidentTitle
+        - incidentDescription
+        - incidentCategory
+        - incidentPriority
+        - incidentLocation
+        - incidentDate
+    ReportIncidentRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          example: INC001
+        userId:
+          type: string
+          example: USR001
+        incidentTitle:
+          type: string
+          example: Network Issue
+        incidentDescription:
+          type: string
+          example: Cannot connect to VPN
+        incidentCategory:
+          type: string
+          example: Network
+        incidentPriority:
+          type: string
+          example: High
+        incidentLocation:
+          type: string
+          example: Office
+        incidentDate:
+          type: string
+          example: '2023-10-01'
+      required:
+        - id
+        - userId
+        - incidentTitle
+        - incidentDescription
+        - incidentCategory
+        - incidentPriority
+        - incidentLocation
+        - incidentDate
+    AssignIncidentRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          example: INC001
+        incidentId:
+          type: string
+        supportAgentId:
+          type: string
+          example: AGT001
+        assignmentDate:
+          type: string
+          example: '2023-10-04'
+        priorityLevel:
+          type: string
+          example: Urgent
+        incidentCategory:
+          type: string
+          example: Network
+        incidentStatus:
+          type: string
+          example: Reported
+      required:
+        - id
+        - incidentCategory
+    InvestigateIncidentRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          example: INC001
+        incidentId:
+          type: string
+        supportAgentId:
+          type: string
+          example: AGT001
+        investigationDetails:
+          type: string
+          example: Checked logs
+        investigationDate:
+          type: string
+          example: '2023-10-07'
+        incidentStatus:
+          type: string
+          example: Reported
+        incidentCategory:
+          type: string
+          example: Network
+      required:
+        - id
+        - incidentCategory
+    ResolveIncidentRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          example: INC001
+        incidentId:
+          type: string
+        supportAgentId:
+          type: string
+          example: AGT001
+        resolutionDetails:
+          type: string
+          example: Rebooted server
+        resolutionDate:
+          type: string
+          example: '2023-10-10'
+        incidentStatus:
+          type: string
+          example: Reported
+        incidentCategory:
+          type: string
+          example: Network
+      required:
+        - id
+        - incidentCategory
+    CloseIncidentRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          example: INC001
+        incidentId:
+          type: string
+        supportAgentId:
+          type: string
+          example: AGT001
+        closureDate:
+          type: string
+          example: '2023-10-13'
+        incidentStatus:
+          type: string
+          example: Reported
+        incidentCategory:
+          type: string
+          example: Network
+        feedback:
+          type: string
+          example: Resolved quickly
+      required:
+        - id
+        - incidentCategory
+  parameters:
+    IncidentId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier for the Incident.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: 'Bad Request: The server cannot or will not process the request due to something that is perceived to be a client error.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: 'Not Found: The server can not find the requested resource.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: 'Internal Server Error: The server has encountered a situation it doesn''t know how to handle.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
